@@ -10,6 +10,6 @@ jobs:
       - name: Install ruff
         run: pip install ruff==0.14.10
       - name: Ruff check
-        run: ruff check src/ --output-format=text
+        run: ruff check src/
       - name: Ruff format check
         run: ruff format --check src/
