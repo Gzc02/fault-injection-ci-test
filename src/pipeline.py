@@ -10,8 +10,7 @@ def process_data(input_path: str, output_path: str) -> dict:
         raise FileNotFoundError(f"Input file not found: {input_path}")
 
     data = input_file.read_text()
-    lines = data.strip().split("
-")
+    lines = data.strip().splitlines()
 
     results = {
         "total_lines": len(lines),
@@ -28,7 +27,7 @@ def process_data(input_path: str, output_path: str) -> dict:
 
 def validate_config(config: dict) -> list[str]:
     """Validate configuration dictionary."""
-    errors = []
+    errors: list[str] = []
     required_keys = ["name", "version", "entry_point"]
 
     for key in required_keys:
@@ -41,27 +40,3 @@ def validate_config(config: dict) -> list[str]:
             errors.append("Version must be in format X.Y.Z")
 
     return errors
-
-
-class DataPipeline:
-    """A simple data processing pipeline."""
-
-    def __init__(self, name: str, steps: list[str] | None = None):
-        self.name = name
-        self.steps = steps or []
-        self.results: dict = {}
-
-    def add_step(self, step_name: str) -> None:
-        """Add a processing step."""
-        if step_name in self.steps:
-            raise ValueError(f"Step already exists: {step_name}")
-        self.steps.append(step_name)
-
-    def run(self, data: dict) -> dict:
-        """Execute all pipeline steps."""
-        current = data.copy()
-        for step in self.steps:
-            current["last_step"] = step
-            current["step_count"] = current.get("step_count", 0) + 1
-        self.results = current
-        return current
