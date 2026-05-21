@@ -1,6 +1,5 @@
 """Sample module for fault injection testing."""
 
-import os
 from pathlib import Path
 
 
@@ -50,7 +49,7 @@ class DataPipeline:
     def __init__(self, name: str, steps: list[str] | None = None):
         self.name = name
         self.steps = steps or []
-        self.results = {}
+        self.results: dict = {}
 
     def add_step(self, step_name: str) -> None:
         """Add a processing step."""
